@@ -1,0 +1,343 @@
+@page {
+    size: A4 portrait;
+    margin: 25pt;
+}
+
+body {
+    font-family: 'Times New Roman', 'Georgia', serif;
+    color: #222222;
+    line-height: 1.35;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+/* Certificate Double Frame Wrapper */
+.certificate-container {
+    border: 3.5pt double #003366;
+    /* Elegant double blue border */
+    position: relative;
+    height: 735pt;
+    page-break-inside: avoid;
+}
+
+.inner-border {
+    border: 1px solid #b5a46d;
+    /* Inner gold border */
+    margin: 8pt;
+    padding: 10pt 25pt 8pt 60pt;
+    /* Left padding 60pt for vertical watermark space */
+    height: 695pt;
+    position: relative;
+}
+
+/* Vertical Text Watermark "Certificate" on the Left side */
+.vertical-watermark {
+    position: absolute;
+    left: -160pt;
+    top: 320pt;
+    width: 500pt;
+    font-size: 68pt;
+    font-weight: bold;
+    color: rgba(220, 224, 230, 0.22);
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    transform: rotate(-90deg);
+    transform-origin: center center;
+    letter-spacing: 12pt;
+    text-transform: uppercase;
+    z-index: -50;
+}
+
+/* Central Globe Watermark (Low Opacity Image Overlay) */
+.center-watermark-container {
+    position: absolute;
+    top: 180pt;
+    left: 82pt;
+    width: 380pt;
+    height: 380pt;
+    z-index: -100;
+}
+
+.center-watermark-img {
+    width: 100%;
+    height: 100%;
+    opacity: 0.045;
+    /* Extremely faint background globe */
+}
+
+/* Header layout */
+.logo-center-container {
+    text-align: center;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
+    width: 100%;
+}
+
+/* Standalone MQA Globe Logo absolute positioned in the corner and cropped */
+.logo-left-container {
+    position: absolute;
+    top: -28pt;
+    left: -32pt;
+    width: 155pt;
+    height: 155pt;
+    z-index: 10;
+}
+
+.logo-left-img {
+    width: 100%;
+    height: 100%;
+}
+
+.logo-right-img {
+    width: 195pt;
+    height: 56pt;
+}
+
+/* Certificate Content Typography */
+.cert-header {
+    text-align: center;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 27pt;
+    font-style: italic;
+    font-weight: normal;
+    color: #003366;
+    margin: 8pt 0;
+    letter-spacing: 0.5pt;
+}
+
+.cert-certify-text {
+    text-align: center;
+    font-size: 11pt;
+    color: #555555;
+    margin: 6pt 0 4pt 0;
+}
+
+.client-name {
+    text-align: center;
+    font-size: 21pt;
+    font-weight: bold;
+    color: #111111;
+    margin: 4pt 0;
+    text-transform: uppercase;
+    font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.client-address {
+    text-align: center;
+    font-size: 8.5pt;
+    color: #333333;
+    font-weight: bold;
+    margin: 0 auto 12pt auto;
+    max-width: 420pt;
+    text-transform: uppercase;
+    line-height: 1.35;
+}
+
+.cert-standard-intro {
+    text-align: center;
+    font-size: 10pt;
+    color: #444444;
+    margin: 8pt 0 4pt 0;
+}
+
+.iso-standard {
+    text-align: center;
+    font-size: 23pt;
+    font-weight: bold;
+    color: #003366;
+    margin: 2pt 0;
+    font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.management-system {
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bold;
+    color: #003366;
+    margin: 0 0 12pt 0;
+}
+
+.scope-intro {
+    text-align: center;
+    font-size: 10pt;
+    color: #444444;
+    margin: 8pt 0 2pt 0;
+}
+
+.scope-activities {
+    text-align: center;
+    font-size: 12.5pt;
+    font-weight: bold;
+    color: #111111;
+    margin: 0 auto 15pt auto;
+    max-width: 420pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+}
+
+.cert-number {
+    text-align: center;
+    font-size: 11.5pt;
+    font-weight: bold;
+    color: #111111;
+    margin: 15pt 0;
+}
+
+/* Dates Alignment Table */
+.dates-table {
+    width: 62%;
+    margin: 0 auto 10pt auto;
+    /* Centered horizontally */
+    border-collapse: collapse;
+}
+
+.dates-table td {
+    padding: 3pt 0;
+    font-size: 10pt;
+}
+
+.dates-label {
+    font-style: italic;
+    color: #333333;
+    text-align: left;
+}
+
+.dates-value {
+    text-align: right;
+    font-weight: bold;
+    color: #111111;
+    width: 120pt;
+}
+
+.cert-validity-note {
+    text-align: center;
+    /* Centered text */
+    font-size: 9pt;
+    font-weight: bold;
+    color: #333333;
+    margin: 0 auto 15pt auto;
+    /* Centered horizontally */
+    width: 62%;
+    line-height: 1.3;
+}
+
+/* Footer elements layout */
+.footer-table {
+    width: 100%;
+    margin-top: 15pt;
+    border-top: 1px solid #eeeeee;
+    padding-top: 8pt;
+}
+
+.sign-cell {
+    width: 50%;
+    vertical-align: bottom;
+}
+
+.sign-container {
+    margin-left: 40pt;
+}
+
+.seals-cell {
+    width: 50%;
+    text-align: left;
+    /* Align seals to the left, closer to signatory */
+    vertical-align: bottom;
+    padding-left: 0pt;
+    /* Shift closer to signatory */
+}
+
+.seals-wrapper {
+    margin-left: -32pt;
+}
+
+.sign-stamp-box {
+    width: 95pt;
+    height: 32pt;
+    background-color: rgba(74, 144, 226, 0.15);
+    /* Faint blue signature overlay */
+    border: 1pt dashed #4a90e2;
+    border-radius: 5pt;
+    margin-bottom: 5pt;
+    margin-left: 4pt;
+}
+
+.sign-title {
+    font-size: 8.5pt;
+    font-weight: bold;
+    color: #111111;
+    margin: 0;
+}
+
+.sign-company {
+    font-size: 8.5pt;
+    font-weight: bold;
+    color: #003366;
+    margin: 1px 0;
+}
+
+.sign-address {
+    font-size: 7.5pt;
+    color: #555555;
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* Set explicit dimensions for seals */
+.seal-container {
+    display: inline-block;
+    position: relative;
+    width: 52pt;
+    height: 52pt;
+    margin-left: 10pt;
+    /* Same space between */
+    vertical-align: bottom;
+}
+
+.seal-first {
+    margin-left: 0 !important;
+    /* No margin on the first seal */
+}
+
+.seal-icon-img {
+    width: 52pt;
+    height: 52pt;
+    vertical-align: bottom;
+    display: block;
+}
+
+.seal-gold-text {
+    position: absolute;
+    top: 21pt;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 7pt;
+    font-weight: bold;
+    color: #000000;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    letter-spacing: -0.2pt;
+    text-transform: uppercase;
+}
+
+.validity-check-url {
+    text-align: center;
+    font-size: 9.5pt;
+    font-weight: bold;
+    color: #333333;
+    margin: 10pt 0 3pt 0;
+}
+
+.validity-check-url span {
+    color: #cc0000;
+    /* Red URL */
+}
+
+.disclaimer-text {
+    text-align: justify;
+    font-size: 6pt;
+    color: #666666;
+    line-height: 1.25;
+    margin: 4px 0 0 0;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}

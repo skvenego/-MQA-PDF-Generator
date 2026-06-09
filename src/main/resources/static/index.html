@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQA PDF Generator – Home</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #2e0854 100%);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #06b6d4;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.3);
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            z-index: 1;
+            margin: 2rem 0;
+        }
+
+        /* Glassmorphic Card */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        /* Status Header */
+        .status-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-dot {
+            width: 14px;
+            height: 14px;
+            background-color: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 12px 4px var(--success-glow);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Database Badge */
+        .db-status-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .db-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .db-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--warning);
+        }
+
+        .db-indicator.connected {
+            background-color: var(--success);
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        /* Button Grid */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        @media (min-width: 600px) {
+            .btn-group {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            width: 100%;
+            max-width: 280px;
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, #7c3aed 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(0);
+        }
+
+        /* Designer Section */
+        .designer-section {
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2.5rem;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .api-endpoint-card {
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0.8rem;
+        }
+
+        .method {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .method.post {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .method.get {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--accent-secondary);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .path {
+            font-family: monospace;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: #cbd5e1;
+        }
+
+        /* Form Grid Layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+
+        @media (min-width: 650px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .full-width {
+                grid-column: span 2;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-primary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        select.form-control option {
+            background-color: #1e293b;
+            color: var(--text-primary);
+        }
+
+        /* Footer Credits */
+        .footer-text {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: rgba(148, 163, 184, 0.4);
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="glass-card">
+            
+            <!-- App status header -->
+            <div class="status-header">
+                <span class="status-dot"></span>
+                <h1>✅ MQA PDF Generator is running</h1>
+            </div>
+            
+            <p class="subtitle">Welcome! The application started successfully and is connected to PostgreSQL.</p>
+            
+            <!-- PostgreSQL Dynamic Status Badge -->
+            <div class="db-status-container">
+                <div class="db-status-badge">
+                    <span id="dbIndicator" class="db-indicator"></span>
+                    <span id="dbText">Verifying Database Connection...</span>
+                </div>
+            </div>
+
+            <!-- Main control buttons -->
+            <div class="btn-group">
+                <button type="button" id="downloadBtn" class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Download Certificate
+                </button>
+            </div>
+
+            <!-- Certificate Designer Section -->
+            <div class="designer-section">
+                
+                <h2 class="section-title">Certificate Designer</h2>
+                <div class="api-endpoint-card" style="background: rgba(255, 255, 255, 0.02);">
+                    <form id="certificateForm">
+                        <div class="form-grid">
+                            
+                            <!-- Client Name -->
+                            <div class="form-group full-width">
+                                <label for="clientName">Certified Client Name</label>
+                                <input type="text" id="clientName" class="form-control" required value="JAYRAMBHAI J RABARI">
+                            </div>
+
+                            <!-- Address -->
+                            <div class="form-group full-width">
+                                <label for="address">Address</label>
+                                <textarea id="address" class="form-control" required>PLOT NO. 1084, GIDC, ROAD NO. 4 &amp; 6, SACHIN, SURAT, GUJARAT – 394230, INDIA</textarea>
+                            </div>
+
+                            <!-- Select Standard Preset -->
+                            <div class="form-group full-width">
+                                <label for="standardPreset">Select Standard Preset</label>
+                                <select id="standardPreset" class="form-control">
+                                    <option value="ISO 9001:2015" data-system="Quality Management System" selected>ISO 9001:2015 (Quality Management System)</option>
+                                    <option value="ISO 14001:2015" data-system="Environmental Management System">ISO 14001:2015 (Environmental Management System)</option>
+                                    <option value="ISO 45001:2018" data-system="Occupational Health &amp; Safety Management System">ISO 45001:2018 (Occupational Health &amp; Safety Management System)</option>
+                                    <option value="ISO 27001:2022" data-system="Information Security Management System">ISO 27001:2022 (Information Security Management System)</option>
+                                    <option value="ISO 22000:2018" data-system="Food Safety Management System">ISO 22000:2018 (Food Safety Management System)</option>
+                                    <option value="ISO 13485:2016" data-system="Medical Devices Quality Management System">ISO 13485:2016 (Medical Devices Quality Management System)</option>
+                                    <option value="custom" data-system="">-- Custom (Enter details manually below) --</option>
+                                </select>
+                            </div>
+
+                            <!-- ISO Standard -->
+                            <div class="form-group">
+                                <label for="standard">Standard (e.g. ISO 9001:2015)</label>
+                                <input type="text" id="standard" class="form-control" required value="ISO 9001:2015">
+                            </div>
+
+                            <!-- System Name -->
+                            <div class="form-group">
+                                <label for="systemName">Management System Name</label>
+                                <input type="text" id="systemName" class="form-control" required value="Quality Management System">
+                            </div>
+
+                            <!-- Scope -->
+                            <div class="form-group full-width">
+                                <label for="scope">Scope of Activities</label>
+                                <input type="text" id="scope" class="form-control" required value="TRANSPORT OF BUILDING MATERIALS">
+                            </div>
+
+                            <!-- Certificate No -->
+                            <div class="form-group">
+                                <label for="certificateNo">Certificate Number</label>
+                                <input type="text" id="certificateNo" class="form-control" required value="QMS/26MX894">
+                            </div>
+
+                            <!-- Watermark Text -->
+                            <div class="form-group">
+                                <label for="watermarkText">Background Watermark</label>
+                                <input type="text" id="watermarkText" class="form-control" required value="MQA">
+                            </div>
+
+                            <!-- Initial Date -->
+                            <div class="form-group">
+                                <label for="initialDate">Initial Registration Date</label>
+                                <input type="text" id="initialDate" class="form-control" required value="28 May 2026">
+                            </div>
+
+                            <!-- First Audit -->
+                            <div class="form-group">
+                                <label for="firstAuditDate">First Surv. Audit Date</label>
+                                <input type="text" id="firstAuditDate" class="form-control" required value="27 May 2027">
+                            </div>
+
+                            <!-- Second Audit -->
+                            <div class="form-group">
+                                <label for="secondAuditDate">Second Surv. Audit Date</label>
+                                <input type="text" id="secondAuditDate" class="form-control" required value="27 May 2028">
+                            </div>
+
+                            <!-- Recertification Date -->
+                            <div class="form-group">
+                                <label for="recertificationDate">Re-certification Due Date</label>
+                                <input type="text" id="recertificationDate" class="form-control" required value="27 May 2029">
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="margin-top: 1.5rem; max-width: 100%; width: 100%;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Generate Certificate PDF
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-text">
+                MQA CERTIFICATION SERVICES &bull; CERTIFICATE UTILITY
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Check database status
+        async function checkStatus() {
+            const indicator = document.getElementById('dbIndicator');
+            const text = document.getElementById('dbText');
+            
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                
+                if (data.connected) {
+                    indicator.classList.add('connected');
+                    text.textContent = 'PostgreSQL Connection: Connected';
+                    text.style.color = '#10b981';
+                } else {
+                    indicator.classList.remove('connected');
+                    text.textContent = 'PostgreSQL Connection: Offline';
+                    text.style.color = '#ef4444';
+                }
+            } catch (error) {
+                console.error(error);
+                indicator.classList.remove('connected');
+                text.textContent = 'PostgreSQL Connection: Connection Failed';
+                text.style.color = '#ef4444';
+            }
+        }
+
+
+
+        // Handle certificate generation form submission
+        const form = document.getElementById('certificateForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Generating PDF...';
+
+            const payload = {
+                clientName: document.getElementById('clientName').value,
+                address: document.getElementById('address').value,
+                standard: document.getElementById('standard').value,
+                systemName: document.getElementById('systemName').value,
+                scope: document.getElementById('scope').value,
+                certificateNo: document.getElementById('certificateNo').value,
+                watermarkText: document.getElementById('watermarkText').value,
+                initialDate: document.getElementById('initialDate').value,
+                firstAuditDate: document.getElementById('firstAuditDate').value,
+                secondAuditDate: document.getElementById('secondAuditDate').value,
+                recertificationDate: document.getElementById('recertificationDate').value
+            };
+
+            try {
+                const response = await fetch('/api/pdf/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to generate certificate');
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'mqa_certificate_' + payload.clientName.toLowerCase().replace(/[^a-z0-9]/g, '_') + '.pdf';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error(error);
+                alert('An error occurred while generating the certificate PDF. Please check backend connection.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        });
+
+        // Form persistence fields
+        const formFields = [
+            'clientName',
+            'address',
+            'standard',
+            'systemName',
+            'scope',
+            'certificateNo',
+            'watermarkText',
+            'initialDate',
+            'firstAuditDate',
+            'secondAuditDate',
+            'recertificationDate'
+        ];
+
+        function saveFormToLocalStorage() {
+            const data = {};
+            formFields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    data[id] = element.value;
+                }
+            });
+            localStorage.setItem('mqa_certificate_form_data', JSON.stringify(data));
+        }
+
+        // Preset Dropdown Syncing Logic
+        const presetSelect = document.getElementById('standardPreset');
+        const standardInput = document.getElementById('standard');
+        const systemNameInput = document.getElementById('systemName');
+
+        presetSelect.addEventListener('change', () => {
+            const selectedOption = presetSelect.options[presetSelect.selectedIndex];
+            if (presetSelect.value !== 'custom') {
+                standardInput.value = selectedOption.value;
+                systemNameInput.value = selectedOption.getAttribute('data-system');
+                saveFormToLocalStorage();
+            }
+        });
+
+        function updatePresetDropdown() {
+            const currentStd = standardInput.value;
+            const currentSys = systemNameInput.value;
+            
+            let matched = false;
+            for (let i = 0; i < presetSelect.options.length; i++) {
+                const opt = presetSelect.options[i];
+                if (opt.value === currentStd && opt.getAttribute('data-system') === currentSys) {
+                    presetSelect.selectedIndex = i;
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) {
+                presetSelect.value = 'custom';
+            }
+        }
+
+        standardInput.addEventListener('input', updatePresetDropdown);
+        systemNameInput.addEventListener('input', updatePresetDropdown);
+
+        function loadFormFromLocalStorage() {
+            const saved = localStorage.getItem('mqa_certificate_form_data');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    formFields.forEach(id => {
+                        const element = document.getElementById(id);
+                        if (element && data[id] !== undefined) {
+                            element.value = data[id];
+                        }
+                    });
+                    updatePresetDropdown();
+                } catch (e) {
+                    console.error('Error parsing saved form data', e);
+                }
+            }
+        }
+
+        // Save form values on input change
+        form.addEventListener('input', saveFormToLocalStorage);
+
+        // Top button triggers form submit
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.addEventListener('click', () => {
+            form.requestSubmit();
+        });
+
+        // Initialize health check and load saved form on load
+        window.addEventListener('DOMContentLoaded', () => {
+            checkStatus();
+            loadFormFromLocalStorage();
+        });
+    </script>
+</body>
+</html>

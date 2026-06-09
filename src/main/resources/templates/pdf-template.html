@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>MQA Certificate of Registration</title>
+    <style th:utext="${cssContent}"></style>
+</head>
+<body>
+
+
+    <!-- Outer double blue border and inner gold border container -->
+    <div class="certificate-container">
+        <div class="inner-border">
+
+            <!-- Top Header Logo -->
+            <div class="logo-center-container">
+                <img th:src="'data:image/png;base64,' + ${logoTextBase64}" class="logo-right-img" alt="MQA Certification Logo"/>
+            </div>
+
+            <!-- Certificate Typography and Content -->
+            <div class="cert-header">Certificate of Registration</div>
+            
+            <div class="cert-certify-text">This is to certify that</div>
+            
+            <div class="client-name" th:text="${clientName}">JAYRAMBHAI J RABARI</div>
+            
+            <div class="client-address" th:text="${address}">
+                PLOT NO. 1084, GIDC, ROAD NO. 4 &amp; 6, SACHIN, SURAT, GUJARAT – 394230, INDIA
+            </div>
+            
+            <div class="cert-standard-intro">
+                Has been assessed and certified by MQA Certification Services<br/>
+                As meeting the requirements of:
+            </div>
+            
+            <div class="iso-standard" th:text="${standard}">ISO 9001:2015</div>
+            <div class="management-system" th:text="'(' + ${systemName} + ')'">(Quality Management System)</div>
+            
+            <div class="scope-intro">For the Following Scope of Activities:</div>
+            <div class="scope-activities" th:text="${scope}">TRANSPORT OF BUILDING MATERIALS</div>
+            
+            <div class="cert-number" th:text="':: Certificate No. :: ' + ${certificateNo}">:: Certificate No. :: QMS/26MX894</div>
+
+            <!-- Dates Alignment Section -->
+            <table class="dates-table">
+                <tr>
+                    <td class="dates-label">Date of initial registration:</td>
+                    <td class="dates-value" th:text="${initialDate}">28 May 2026</td>
+                </tr>
+                <tr>
+                    <td class="dates-label">First Surv. Audit on or before:</td>
+                    <td class="dates-value" th:text="${firstAuditDate}">27 May 2027</td>
+                </tr>
+                <tr>
+                    <td class="dates-label">Second Surv. Audit on or before:</td>
+                    <td class="dates-value" th:text="${secondAuditDate}">27 May 2028</td>
+                </tr>
+                <tr>
+                    <td class="dates-label">Re-certification Due:</td>
+                    <td class="dates-value" th:text="${recertificationDate}">27 May 2029</td>
+                </tr>
+            </table>
+
+            <div class="cert-validity-note">
+                This Certificate is property of MQA and remains valid<br/>
+                Subject to satisfactory surveillance audits.
+            </div>
+
+            <!-- Bottom Signature and Seals -->
+            <table class="footer-table">
+                <tr>
+                    <td class="sign-cell">
+                        <div class="sign-container">
+                            <div class="sign-stamp-box"></div>
+                            <div class="sign-title">Authorized Signatory</div>
+                            <div class="sign-company">MQA CERTIFICATION SERVICES</div>
+                            <div class="sign-address">
+                                130 Thessaly Rd, Nine Elms, London<br/>
+                                SW8 5EJ, United Kingdom
+                            </div>
+                        </div>
+                    </td>
+                    <td class="seals-cell">
+                        <div class="seals-wrapper">
+                            <div class="seal-container seal-first"><img th:src="'data:image/png;base64,' + ${sealMqaBase64}" class="seal-icon-img" alt="MQA Seal"/></div><div class="seal-container"><img th:src="'data:image/png;base64,' + ${sealUkafBase64}" class="seal-icon-img" alt="UKAF Seal"/></div><div class="seal-container"><img th:src="'data:image/png;base64,' + ${sealGoldBase64}" class="seal-icon-img" alt="Gold ISO Seal"/><span class="seal-gold-text" th:text="${sealStandard}">ISO 9001</span></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Validity Check URL -->
+            <div class="validity-check-url">
+                To check validity of the certificate please visit at <span>www.mqacertification.com</span>
+            </div>
+
+            <!-- Legal Disclaimer -->
+            <div class="disclaimer-text">
+                This Certificate of Registration is issued by MQA Certification Services, accredited by UKAF CERT LIMITED Accreditation Board for Certification Bodies (www.ukafcert.org.uk). This certificate remains the property of MQA Certification Services and must be returned upon request.
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Standalone Globe Logo absolute positioned in the top-left corner -->
+    <div class="logo-left-container">
+        <img th:src="'data:image/png;base64,' + ${logoGlobeBase64}" class="logo-left-img" alt="MQA Globe Logo"/>
+    </div>
+
+    <!-- Left Margin Vertical Watermark -->
+    <div class="vertical-watermark">Certificate</div>
+    
+    <!-- Central Globe Watermark (Low Opacity Image Overlay) -->
+    <div class="center-watermark-container">
+        <img th:src="'data:image/png;base64,' + ${logoGlobeBase64}" class="center-watermark-img" alt="Watermark Globe"/>
+    </div>
+
+</body>
+</html>
